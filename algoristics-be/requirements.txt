@@ -1,0 +1,10 @@
+pymupdf
+uvicorn
+openai
+python-docx
+python-dotenv
+pydantic
+sentence-transformers
+fastapi
+starlette
+opensearch-py
