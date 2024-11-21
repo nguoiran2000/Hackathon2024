@@ -1,0 +1,39 @@
+from pydantic import BaseModel
+from typing import List
+
+class SearchQuery(BaseModel):
+    query_text: str
+class TechnologySuggestion(BaseModel):
+    infra: str
+    database: str
+    language: str
+    other_tools: str
+class SummaryJson(BaseModel):
+    project_summarization: str
+    technology_suggestion: TechnologySuggestion
+class DevelopmentPlan(BaseModel):
+    time: str
+    explain: str
+    feature_list: List[str]
+class ProjectAnalysisResponse(BaseModel):
+    summary: str
+    summary_json: SummaryJson
+    development_plan: List[DevelopmentPlan]
+    search_str: str
+class EmployeeData(BaseModel):
+    name: str
+    email: str
+    department: str
+    position: str
+    specializations: List[str]
+    skills: List[str]
+    experiences: str
+    overview: str
+class ProjectData(BaseModel):
+    name: str
+    business_domain: str
+    overview: str
+    technology: List[str]
+    project_manager: str
+    email: str
+    tech_issues: str
