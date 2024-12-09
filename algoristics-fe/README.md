@@ -1,5 +1,5 @@
 
-# Algoristics Frontend
+# BidBridge Frontend
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@
 
 ## Project Overview
 
-The **Algoristics Frontend** is designed to deliver a responsive, user-friendly interface for managing employees, projects, and other core functionalities. It supports authentication, a dashboard, and modular pages for different application features.
+The **BidBridge Frontend** is designed to deliver a responsive, user-friendly interface for managing employees, projects, and other core functionalities. It supports authentication, a dashboard, and modular pages for different application features.
 
 ## Features
 

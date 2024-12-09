@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Home - Algoristics",
+  title: "Home - BidBridge",
   description: "FHN-GLC",
 };
 

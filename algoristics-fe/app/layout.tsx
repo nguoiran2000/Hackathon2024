@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Algoristics",
+  title: "BidBridge",
   description: "FHN-GLC",
 };
 

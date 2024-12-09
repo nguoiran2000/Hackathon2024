@@ -41,29 +41,22 @@ export default function UploadDashboard({ data, endpoint }) {
     <div className="mt-24">
       <div className="p-4 rounded-lg grid grid-cols-1 divide-y gap-4 card rounded shadow p-4 bg-white">
       <div className="">
-      <div className="font-bold text-lg">1. Key Features of OOG Solution:</div>
-        {openDetail ? <Markdown children={data?.summary} /> : data?.summary_json?.project_summarization}
+      <div className="font-bold text-lg">1. Key Features of OOG Solution:</div>{data?.summary_json?.project_summarization}
+        {openDetail ? <Markdown className="prose mt-4 max-w-full" children={data?.summary} /> : null}
         {!openDetail && <button className="text-blue-500 ml-2 underline" onClick={() => setOpenDetail(true)}>Detail</button>}
         {openDetail && <button className="text-gray-500 ml-2 underline" onClick={() => setOpenDetail(false)}>Less</button>}
         </div>
         {test?.technology_suggestion && (<div className="pt-4 ">
             <ul className="list">
-              {Object.keys(test.technology_suggestion).map(i => (
-<>
-{typeof test?.technology_suggestion[i] === 'string'  ? (<li><b className="uppercase">{i}:</b> {test?.technology_suggestion[i]}</li>)
-
-: (<li><ul>
-  {Object.keys(test.technology_suggestion[i]).map(j => j !== 'explain' && (
-  <li className="mb-2">
-    <h3><b className="capitalize">{j}</b></h3> 
-     - {test.technology_suggestion[i][j]}  ({test.technology_suggestion[i].explain})
-    
-    </li>
-))}
-  </ul></li>)}
               
-                </>
-              ))}
+  <li className="mb-2">
+    <h3><b className="capitalize">Key Technologies</b></h3> 
+     - {test.technology_suggestion.key_tech?.tech}  
+     <p> Explain: {test.technology_suggestion.key_tech?.explain}</p>
+     <h3><b className="capitalize">Additional Technologies</b></h3> 
+     - {test.technology_suggestion.other_tools?.tools}  
+     <p> Explain: {test.technology_suggestion.other_tools?.explain}</p>
+    </li>
             </ul>
         </div>)}
     </div>
