@@ -36,20 +36,33 @@ export default function UploadDashboard({ data, endpoint }) {
       alert("Error fetching search");
     }
   };
+  const test = data?.summary_json
   return (
     <div className="mt-24">
       <div className="p-4 rounded-lg grid grid-cols-1 divide-y gap-4 card rounded shadow p-4 bg-white">
       <div className="">
-      <div className="font-bold text-lg">Key Features of OOG Solution:</div>
+      <div className="font-bold text-lg">1. Key Features of OOG Solution:</div>
         {openDetail ? <Markdown children={data?.summary} /> : data?.summary_json?.project_summarization}
         {!openDetail && <button className="text-blue-500 ml-2 underline" onClick={() => setOpenDetail(true)}>Detail</button>}
         {openDetail && <button className="text-gray-500 ml-2 underline" onClick={() => setOpenDetail(false)}>Less</button>}
         </div>
-        {data?.summary_json?.technology_suggestion && (<div className="pt-4 text-slate-500">
-            <ul>
-              {Object.keys(data?.summary_json?.technology_suggestion).map(i => (
+        {test?.technology_suggestion && (<div className="pt-4 ">
+            <ul className="list">
+              {Object.keys(test.technology_suggestion).map(i => (
+<>
+{typeof test?.technology_suggestion[i] === 'string'  ? (<li><b className="uppercase">{i}:</b> {test?.technology_suggestion[i]}</li>)
 
-              <li><b className="uppercase">{i}:</b> {data?.summary_json?.technology_suggestion[i]}</li>
+: (<li><ul>
+  {Object.keys(test.technology_suggestion[i]).map(j => j !== 'explain' && (
+  <li className="mb-2">
+    <h3><b className="capitalize">{j}</b></h3> 
+     - {test.technology_suggestion[i][j]}  ({test.technology_suggestion[i].explain})
+    
+    </li>
+))}
+  </ul></li>)}
+              
+                </>
               ))}
             </ul>
         </div>)}
@@ -57,7 +70,7 @@ export default function UploadDashboard({ data, endpoint }) {
     {data?.development_plan && (
       <div className="mt-6">
       <div className="p-4 rounded-lg grid grid-cols-1 divide-y gap-4 card rounded shadow p-4 bg-white ">
-        <div className="font-bold text-lg">Development Plan:</div>
+        <div className="font-bold text-lg">2. Development Plan:</div>
         <div className="grid gap-2 text-white pt-4">
             <div className="grid gap-2" style={{'grid-template-columns': `repeat(${data?.development_plan.length +1 }, minmax(0, 1fr))`}}>
               <div className=""></div> 
@@ -91,7 +104,7 @@ export default function UploadDashboard({ data, endpoint }) {
 <div className="flex flex-col bg-white mt-6">
   <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-      <div className="font-bold p-6">Potential resource with project tech stack</div>
+      <div className="font-bold p-6 text-lg">3. Potential resource with project tech stack</div>
       <div className="overflow-hidden">
         <RenderEmployees data={searchEmployees} />
       </div>
@@ -102,7 +115,7 @@ export default function UploadDashboard({ data, endpoint }) {
 <div className="flex flex-col mt-12 mb-24 bg-white mt-6">
   <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-      <div className="font-bold p-6">Relevant Project</div>
+      <div className="font-bold p-6 text-lg">4. Relevant Project</div>
       <div className="overflow-hidden">
         <RenderProjects data={searchProjects} />
       </div>
