@@ -9,6 +9,7 @@ export default function RenderEmployees({ data }) {
           <thead
             className="border-b border-neutral-200 font-medium dark:border-white/10">
             <tr>
+              <th scope="col" className="pl-6 py-4">Matching (%)</th>
               <th scope="col" className="px-6 py-4">User Name</th>
               <th scope="col" className="px-6 py-4">Department</th>
               <th scope="col" className="px-6 py-4">Position</th>
@@ -19,7 +20,8 @@ export default function RenderEmployees({ data }) {
           <tbody>
             {data?.map((employee, index) => (
               <tr className="border-b border-neutral-200 dark:border-white/10">
-              <td className="whitespace-nowrap px-6 py-4 font-medium">{employee[0]?.name} ({employee[0]?.email})</td>
+              <td className="whitespace-nowrap pl-6 py-4 font-medium min-w-[120px]">{(employee[1] * 100).toFixed(2)}</td>
+              <td className="whitespace-nowrap px-6 py-4 font-medium">{employee[0]?.name}</td>
               <td className="whitespace-nowrap px-6 py-4">{employee[0]?.department}</td>
               <td className="whitespace-nowrap px-6 py-4">{employee[0]?.position}</td>
               <td className="whitespace-nowrap px-6 py-4 flex flex-wrap gap-1">

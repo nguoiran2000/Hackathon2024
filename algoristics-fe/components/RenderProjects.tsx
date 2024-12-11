@@ -10,6 +10,7 @@ export default function RenderProjects({ data }) {
           <thead
             className="border-b border-neutral-200 font-medium dark:border-white/10">
             <tr>
+            <th scope="col" className="pl-6 py-4">Matching (%)</th>
               <th scope="col" className="px-6 py-4">Project Name</th>
               <th scope="col" className="px-6 py-4">Business Domain</th>
               <th scope="col" className="px-6 py-4">Project Manager</th>
@@ -20,6 +21,7 @@ export default function RenderProjects({ data }) {
           <tbody>
           {(data || []).map((project, index) => (
             <tr className="border-b border-neutral-200 dark:border-white/10">
+              <td className="whitespace-nowrap pl-6 py-4 font-medium min-w-[120px]">{(project[1] * 100).toFixed(2)}</td>
               <td className="whitespace-nowrap px-6 py-4 font-medium">{project[0]?.name}</td>
               <td className="whitespace-nowrap px-6 py-4">{project[0]?.business_domain}</td>
               <td className="whitespace-nowrap px-6 py-4"><a title="Contact" className="underline text-blue-500" href={`mailto:${project[0]?.email}`}>{project[0]?.project_manager}</a></td>

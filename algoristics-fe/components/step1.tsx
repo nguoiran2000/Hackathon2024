@@ -1,8 +1,10 @@
 import { useState } from "react";
+import useLocalStorageState from 'use-local-storage-state'
 
 export default function Step1({ onChangeStep, endpoint }) {
   const [file, setFile] = useState<File | null>(null);
   const [process, setProcess] = useState<number>(0);
+  const [fileData, setFileData] = useLocalStorageState('fileData', {})
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -35,7 +37,9 @@ export default function Step1({ onChangeStep, endpoint }) {
         body: formData,
       });
       if (response.ok) {
-        onChangeStep(3, await response.json());
+        const temp = await response.json()
+        setFileData(temp)
+        onChangeStep(3, temp);
       } else {
         alert("File upload failed!");
       }

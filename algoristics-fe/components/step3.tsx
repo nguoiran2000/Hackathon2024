@@ -7,6 +7,7 @@ export default function UploadDashboard({ data, endpoint }) {
   const [openDetail, setOpenDetail] = useState(false);
   const [searchProjects, setSearchProjects] = useState(null);
   const [searchEmployees, setSearchEmployees] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   
   useEffect(() => {
     console.warn(data,123);
@@ -52,10 +53,10 @@ export default function UploadDashboard({ data, endpoint }) {
   <li className="mb-2">
     <h3><b className="capitalize">Key Technologies</b></h3> 
      - {test.technology_suggestion.key_tech?.tech}  
-     <p> Explain: {test.technology_suggestion.key_tech?.explain}</p>
+     <p><i>{test.technology_suggestion.key_tech?.explain}</i></p>
      <h3><b className="capitalize">Additional Technologies</b></h3> 
      - {test.technology_suggestion.other_tools?.tools}  
-     <p> Explain: {test.technology_suggestion.other_tools?.explain}</p>
+     <p> <i>{test.technology_suggestion.other_tools?.explain}</i></p>
     </li>
             </ul>
         </div>)}
@@ -67,7 +68,7 @@ export default function UploadDashboard({ data, endpoint }) {
         <div className="grid gap-2 text-white pt-4">
             <div className="grid gap-2" style={{'grid-template-columns': `repeat(${data?.development_plan.length +1 }, minmax(0, 1fr))`}}>
               <div className=""></div> 
-              {data?.development_plan?.map((i, k) => (<div className="bg-blue-700 p-2 rounded flex items-center justify-center font-bold" title={i.explain}>Phase {k+1} ({i.time})</div>))}
+              {data?.development_plan?.map((i, k) => (<div onClick={() => setShowModal({...i, phase: k+1})} className="bg-blue-700 p-2 rounded flex items-center justify-center font-bold hover:bg-blue-800 cursor-pointer" title={i.explain}>Phase {k+1} ({i.time}) <span className="ml-2 border rounded-full w-5 text-center h-5 flex items-center justify-center">&#8505;</span></div>))}
             </div>
 
             <div className="grid gap-2" style={{'grid-template-columns': `repeat(${data?.development_plan.length +1 }, minmax(0, 1fr))`}}>
@@ -83,7 +84,7 @@ export default function UploadDashboard({ data, endpoint }) {
             </div>
             <div className="grid gap-2" style={{'grid-template-columns': `repeat(${data?.development_plan.length +1 }, minmax(0, 1fr))`}}>
               <div className="w-30 bg-blue-700 flex items-center justify-center rounded font-bold">Core functionalities</div>
-              {data?.development_plan?.map(i => (<div className="grid gap-2">
+              {data?.development_plan?.map((i, k) => (<div className="grid gap-2">
                 {i.feature_list.map((j) => (
                   <div className="bg-green-300 p-2 rounded flex items-center justify-center text-gray-800">{j}</div>
                 ))}
@@ -115,6 +116,59 @@ export default function UploadDashboard({ data, endpoint }) {
     </div>
   </div>
 </div>
+
+{showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                  <h3 className="text-3xl font-semibold">
+                    Phase {showModal?.phase} Detail
+                  </h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
+                      {showModal?.explain}
+                  </p>
+                  <h2 className="mt-2"><b>Estimation Time:</b></h2>
+                    - <b>{showModal?.time}</b>
+                  <h2 className="mt-2"><b>Feature List:</b></h2>
+                  <ul className="list-disc pl-6">
+                   {showModal?.feature_list.map(i => (<li className="mr-2" title={i}
+                
+              >{i},</li>))}
+              </ul>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
 </div>
   );
 }
